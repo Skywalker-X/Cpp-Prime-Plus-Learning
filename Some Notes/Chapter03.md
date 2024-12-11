@@ -4,3 +4,5 @@
 ```cout<<hex```
 
 bool类型，非零值为true，只有**零值**为false
+
+浮点数默认情况下是double类型，可以手动指定float类型，如1e7f
