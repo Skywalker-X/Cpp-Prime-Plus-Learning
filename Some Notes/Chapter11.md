@@ -31,3 +31,10 @@ ostream & operator<<(ostream & os, const Time & t)
     return os;
 }
 ```
+
+## 转换函数
+转换函数可以将实现类到某种类型的转换
+```c++
+operator typename();
+```
+转换函数必须是类方法，不能指定返回类型，也不能有参数
