@@ -68,3 +68,21 @@ void restore(format f, precis p)
 C++允许对纯虚函数进行定义
 包含纯虚函数的类称为**抽象类**
 不能创建抽象类的对象，抽象类只能作为基类来使用，其纯虚函数的实现由派生类给出
+
+## 继承和动态内存分配
+
+如果基类使用了new，派生类不使用，派生类会自动调用基类的相关函数
+
+如果派生类使用了new，必须为派生类定义显示析构函数、复制构造函数、赋值运算符
+
+派生类如何访问基类友元函数？
+使用强制类型转换，以便匹配原型时能选择正确的函数
+例如
+```c++
+std::ostream & operator<<(std::ostream & os, const hasDMA & hs)
+{
+    os << (const baseDMA &) hs;
+    os << "Style: " << hs.style << std::endl;
+    return os;
+}
+```
