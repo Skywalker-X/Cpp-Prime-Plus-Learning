@@ -34,3 +34,22 @@
 使用保护继承时，基类的公有成员和保护成员都将成为派生类的保护成员
 基类的接口在派生类中可用，但在继承层次结构外不可用
 第三代类仍可以使用基类的接口
+
+## 多重继承
+
+**虚基类**：使得从多个从该类派生出的对象只继承一个基类对象
+在类声明中使用关键字```virtual```
+例如：
+```c++
+class Singer : virtual public Worker {...};
+class Waiter : virtual public Worker {...};
+
+class SingingWaiter : public Singer, public Waiter {...};
+```
+SingingWaiter对象将只包含Worker对象的一个副本
+继承的Singer和Waiter对象共享一个Worker对象
+
+**构造函数规则**
+构造函数自动传递对于虚基类将不起作用
+编译器会使用虚基类的默认构造函数来构造虚基类对象
+如果不希望这样，需要显示地调用所需的基类构造函数
