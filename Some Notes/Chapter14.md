@@ -63,5 +63,18 @@ template <class Type>
 class Stack
 {
     ...
-}
+};
 ```
+
+还有一种 非类型参数/表达式参数
+```c++
+template <class T, int n>
+class ArrayTP 
+{
+    ...
+};
+```
+这其中```class```指出T为类型参数，int指出n的类型为int
+指定特殊的类型而不是用作泛型名 成为非类型或表达式参数
+
+表达式参数方法的主要缺点是 每种数组大小都将生成自己的模板
