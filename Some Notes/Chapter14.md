@@ -82,4 +82,25 @@ class ArrayTP
 模板类声明也可以有友元，有三类：
 * 非模板友元
 * 约束bound模板友元，即友元的类型取决于类被实例化时的类型
+  * 首先在类定义的前面声明每个模板参数
+  * 然后在函数中再次将模板声明为友元
+  * 最后为友元提供模板定义
 * 非约束unbound模板友元，即友元的所有具体化都是类的每一个具体化的友元
+  * 例如：
+  ```c++
+  template <typename C, typename D> friend void show(C &, D &);
+  ```
+
+可以使用模板别名，例如
+```c++
+template<typename T>
+    using arrtype = array<T, 12>;
+```
+这将arrtype定义为一个模板别名，可以用它来指定类型，例如
+```c++
+arrtype<double> gallons;
+arrtype<int> days;
+arrtype<string> months;
+```
+
+C++11允许将语法```using```用于非模板，这种语法与常规```typedef```等价
