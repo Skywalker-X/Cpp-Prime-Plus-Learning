@@ -91,3 +91,37 @@ Superb * pm = dynamic_cast<Superb *>(pg);
 dynamic_cast<Type *>(pt)
 ```
 将指针pt转换为Type类型的指针，否则结果为0，即空指针
+
+### typeid运算符和type_info类
+
+```c++
+#include<typeinfo>
+```
+
+```typeid```运算符可以接受两种参数：
+* 类名
+* 结果为对象的表达式
+返回一个对```type_info```对象的引用
+
+```type_info```是在头文件```typeinfo```中定义的一个类，重载了 == 和 != 运算符，可以对类型进行并比较
+```type_info```包含一个```name()```成员，该函数返回一个字符串，通常是类的名称
+
+## 类型转换运算符
+
+使用四个类型转换运算符，更严格地限制允许的类型转换，使转换过程更规范
+**dynamic_cast** **const_cast** **static_cast** **reinterpret_cast**
+
+* dynamic_cast
+  * 语法: ```dynamic_cast <type-name> (expression)```
+  * 该运算符的用途是，使得能够在类层次结构中进行向上转换，而不允许其他转换
+  * 由于is-a关系，这样的类型转换是安全的
+* const_cast
+  * ```const_cast <type-name> (expression)```
+  * 改变值为 const 或 volatile
+* static_cast
+  * ```static_cast <type-name> (expression)```
+  * 当且仅当type-name可被隐式转换为expression所属的类型或expression可被隐式转换为type-name所属的类型时，才是合法的，否则出错
+* reinterpret_cast
+  * ```reinterpret_cast <type-name> (expression)```
+  * 用于危险的类型转换，使用reinterpret_cast可以简化对这种行为的跟踪工作
+  * 适用于依赖于实现的底层编程技术，是不可移植的
