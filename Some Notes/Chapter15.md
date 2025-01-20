@@ -121,6 +121,7 @@ dynamic_cast<Type *>(pt)
 * static_cast
   * ```static_cast <type-name> (expression)```
   * 当且仅当type-name可被隐式转换为expression所属的类型或expression可被隐式转换为type-name所属的类型时，才是合法的，否则出错
+  * 允许向上转换和向下转换，还允许枚举类型和整型之间，以及数值类型之间的转换
 * reinterpret_cast
   * ```reinterpret_cast <type-name> (expression)```
   * 用于危险的类型转换，使用reinterpret_cast可以简化对这种行为的跟踪工作
