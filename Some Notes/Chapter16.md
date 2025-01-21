@@ -22,4 +22,23 @@ size_type find(char ch, size_type pos=0) const
 auto_ptr<double> pd(new double)
 ```
 
-686
+unique_ptr不允许拷贝和赋值
+shared_ptr支持拷贝和赋值，通过引用计数支持多个资源共享
+
+auto_ptr现在已经不再使用了
+
+使用new分配内存时，才能使用auto_ptr和shared_ptr
+
+
+## 标准模板库
+
+所有STL容器都提供了一些基本方法，包括
+* size() 返回容器内元素数目
+* swap() 交换两个容器的内容
+* begin() 返回一个指向容器中第一个元素的迭代器
+* end() 返回一个表示超过容器尾的迭代器
+* push_back() 将元素添加到矢量末尾 部分STL容器可以
+* erase() 删除矢量中给定区间的元素，接受两个迭代器参数指定要删除的区间
+* insert() 接受三个迭代器参数，第一个参数指定插入位置，第二三个参数定义了被插入区间
+
+698
