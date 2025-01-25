@@ -64,6 +64,8 @@ for(auto & x : books)
 
 ## 泛型编程
 
+### 迭代器
+
 STL定义了5种迭代器
 * 输入迭代器
   * 使程序能够读取容器中的值，但不一定能修改值
@@ -122,3 +124,48 @@ rbegin和end、rend和begin返回相同的值，但是类型不同
 back_insert_iterator<vector<string>> back_iter(words);
 insert_iterator<vector<int>> insert_iter(dice, dice.begin())
 ```
+
+### list模板类
+
+```#include<list>```
+list模板类表示双向链表，和vector的关键区别在于，**list在链表中任意位置进行插入和删除的时间都是固定的**
+vector强调的是通过随机访问进行快速访问，list强调的是元素的快速插入和删除
+
+list成员函数
+* insert() 接受三个迭代器参数，第一个参数指定插入位置，第二三个参数定义了被插入区间
+* merge(list<T, Alloc> & x)
+  * 将链表x与调用链表合并，合并后的链表保存在调用链表中，x为空
+  * 两个链表必须已排序
+  * 复杂度为线性时间
+* remove(const T & val)
+  * 从链表中删除val的所有实例
+  * 复杂度为线性时间
+* sort() 排序 复杂度NlogN
+* splice(iterator pos, list<T, Alloc> x)
+  * 将链表x的内容插入到pos前面，x将为空
+  * 复杂度固定时间
+  * **insert将原始区间的副本插入到目标地址，splice将原始区间移到目标地址**
+* unique()
+  * 将连续的相同元素压缩为单个元素
+  * 复杂度线性时间
+
+### 关联容器
+
+关联容器 associative container 将值与键关联在一起，并使用键来查找值
+优点：提供了对元素的快速访问
+允许插入新元素，但不能指定元素的插入位置，原因是关联容器通常由用于确定数据放置位置的算法，以便能快速检索信息
+通常使用某周树来实现
+
+STL提供了4种关联容器，前两个需要```#include<set>```，后两个需要```#include<map>```
+* set
+  * 值与键类型相同
+  * 键是唯一的
+* multiset
+  * 值与键类型相同
+  * 可能有多个值的键相同
+* map
+  * 值与键类型不同
+  * 键是唯一的
+* multimap
+  * 值与键类型不同
+  * 一个键可以与多个值相关联
