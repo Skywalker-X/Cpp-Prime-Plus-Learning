@@ -154,7 +154,7 @@ list成员函数
 关联容器 associative container 将值与键关联在一起，并使用键来查找值
 优点：提供了对元素的快速访问
 允许插入新元素，但不能指定元素的插入位置，原因是关联容器通常由用于确定数据放置位置的算法，以便能快速检索信息
-通常使用某周树来实现
+通常使用某种树来实现
 
 STL提供了4种关联容器，前两个需要```#include<set>```，后两个需要```#include<map>```
 * set
@@ -169,3 +169,80 @@ STL提供了4种关联容器，前两个需要```#include<set>```，后两个需
 * multimap
   * 值与键类型不同
   * 一个键可以与多个值相关联
+
+集合种元素是唯一的，且集合被排序
+
+可以使用set_union()来合并集合，有五个参数
+要输出A和B的并集
+```c++
+set_union(A.begin(), A.end(), B.begin(), B.end(), ostream_iterator<string, char> out(cout, " "));
+```
+如果要将结果放到集合C中，不能用C.begin()，因为：
+* 这返回一个常量迭代器，不能用作输出迭代器
+* 与copy()相似，set_union()将覆盖容器里已有的数据，并要求容器有足够的空间容纳新信息，而C是空的，不能满足
+可以使用插入
+```c++
+set_union(A.begin(), A.end(), B.begin(), B.end(), insert_iterator<set<string>>(C, C.begin()));
+
+```
+```set_intersection()``` ```set_difference()```分别查找交集和两个集合的差，接口与并集相同
+
+## 函数对象
+
+函数对象 也叫函数符 functor 是可以以函数方式与()结合使用的对象
+包括函数名、指向函数的指针和重载了()运算符的类对象 (即定义了函数operator()()的类)
+
+STL定义了多个基本函数符
+
+函数```transform()```可以接受4个参数，前两个参数是指定容器区间的迭代器，第三个参数是指定将结果复制到哪里的迭代器，最后一个参数是函数符
+例如
+```C++
+transform(A.begin(), A.end(), out, sqrt);
+```
+头文件```functional```定义了多个模板类函数对象，例如 
+```c++
+#include<functional>
+...
+plus<double> add;
+double y = add(2.2, 3.3);
+...
+transform(A.begin(), A.end(), out, plus<double>);
+```
+
+STL提供的函数符包括：
+* plus
+* minus
+* multiplies
+* divides
+* modulus
+* negate
+* equal_to
+* not_equal_to
+* greater
+* less
+* great_equal
+* less_equal
+* logic_and
+* logic_or
+* logic_not
+
+### 自适应函数符和函数适配器
+
+上一节的预定义函数符都是自适应的
+意义在于：函数适配器对象可以使用函数对象，并认为存在这些typedef成员
+
+例如，multiplies()函数符可以执行乘法计算，但它是二元啊还能输，因此需要一个函数适配器，将接受两个参数的函数符转换为接受一个参数的函数符
+可以使用函数对象来实现
+STL使用binder1st和binder2nd类来自动完成这一过程
+
+假设有一个自适应二元函数对象f2()，可以创建一个binder1st对象
+```c++
+binder1st(f2, val) f1;
+```
+当使用单个参数调用f1(x)时，等价于调用f2(val, x)
+
+STL提供了函数bind1st()，在头文件functional中
+```c++
+bind1st(multiplies<double>(), 2.5)
+```
+bind2nd与此类似，将常数赋给第二个参数
