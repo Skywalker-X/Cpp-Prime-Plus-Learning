@@ -1,4 +1,5 @@
-# C++ Prime Plus 第六版 学习
-# C++ Prime Plus Learning
+# C++ Prime Plus
 
-C++ Primer Plus 第六版 书中代码和课后练习解答
+├─Codes 书中代码
+├─Exercises 课后习题解答
+└─Some Notes 个人笔记
